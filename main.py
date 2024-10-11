@@ -1,7 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from urllib.parse import urlparse, parse_qs
 import time
 import difflib
@@ -18,6 +16,18 @@ def fetch_site(driver, url, dir, delay=1):
         raise ValueError("URL does not contain a course_id")
 
     driver.get(url)
+
+    collapsesections_element = driver.find_element(By.ID, "collapsesections")
+    aria_expanded = collapsesections_element.get_attribute("aria-expanded")
+
+    if aria_expanded == "false":
+        for _ in range(3):
+            collapsesections_element.click()
+            time.sleep(0.5)  # Adding a small delay to ensure the clicks are registered
+    elif aria_expanded == "true":
+        for _ in range(2):
+            collapsesections_element.click()
+            time.sleep(0.5)  # Adding a small delay to ensure the clicks are registered
 
     time.sleep(delay)  # Wait for the page to fully load
 
@@ -45,6 +55,8 @@ def fetch_site(driver, url, dir, delay=1):
     with open(course, 'w', encoding='utf-8') as file:
         file.write(text_content_str)
 
+print("\n\n")
+
 def compare_html_files(dir1, dir2) -> bool:
     files1 = set(os.listdir(dir1))
     files2 = set(os.listdir(dir2))
@@ -64,15 +76,15 @@ def compare_html_files(dir1, dir2) -> bool:
             if file1_content != file2_content:
                 difference_detected = True
                 print(f"Difference found in file: {file_name}")
-                diff = difflib.unified_diff(
-                    file1_content.splitlines(),
-                    file2_content.splitlines(),
-                    fromfile=f'{dir1}/{file_name}',
-                    tofile=f'{dir2}/{file_name}',
-                    lineterm=''
-                )
-                for line in diff:
-                    print(line)
+                # diff = difflib.unified_diff(
+                #     file1_content.splitlines(),
+                #     file2_content.splitlines(),
+                #     fromfile=f'{dir1}/{file_name}',
+                #     tofile=f'{dir2}/{file_name}',
+                #     lineterm=''
+                # )
+                # for line in diff:
+                #     print(line)
     
     if not difference_detected:
         print("No differences found between the two directories")
