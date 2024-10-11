@@ -1,0 +1,7 @@
+auth.txt
+
+Tmp/*
+!Tmp/.gitkeep
+
+Baseline/*
+!Baseline/.gitkeep
