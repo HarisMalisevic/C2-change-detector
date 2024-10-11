@@ -55,8 +55,6 @@ def fetch_site(driver, url, dir, delay=1):
     with open(course, 'w', encoding='utf-8') as file:
         file.write(text_content_str)
 
-print("\n\n")
-
 def compare_html_files(dir1, dir2) -> bool:
     files1 = set(os.listdir(dir1))
     files2 = set(os.listdir(dir2))
@@ -157,6 +155,8 @@ else:
         if url:
             fetch_site(edge_driver, url, tmp_dir)
     
+    print("\n\n")
+
     compare_html_files("Baseline", "Tmp")
 
     move_and_clear_folder("Tmp", "Baseline")    
