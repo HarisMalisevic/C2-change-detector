@@ -51,7 +51,7 @@ def fetch_site(driver, url, dir, delay=1):
 
     # Save the text content to a file
     course = f'{dir}/course_{course_id}.txt'
-    print(f"Saving course {course_id} to {course}")
+    # print(f"Saving course {course_id} to {course}")
     with open(course, 'w', encoding='utf-8') as file:
         file.write(text_content_str)
 
@@ -73,7 +73,7 @@ def compare_html_files(dir1, dir2) -> bool:
 
             if file1_content != file2_content:
                 difference_detected = True
-                print(f"Difference found in file: {file_name}")
+                print(f"Difference found in: {file_name}")
                 # diff = difflib.unified_diff(
                 #     file1_content.splitlines(),
                 #     file2_content.splitlines(),
@@ -85,7 +85,7 @@ def compare_html_files(dir1, dir2) -> bool:
                 #     print(line)
     
     if not difference_detected:
-        print("No differences found between the two directories")
+        print("No differences found!")
     
     return difference_detected
 
