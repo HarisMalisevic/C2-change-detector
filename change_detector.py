@@ -105,15 +105,16 @@ def compare_files_in_folders(dir1, dir2) -> bool:
             if file1_content != file2_content:
                 difference_detected = True
                 print(f"Difference found in: {file_name}")
-                diff = difflib.unified_diff(
-                    file1_content.splitlines(),
-                    file2_content.splitlines(),
-                    fromfile=f'{dir1}/{file_name}',
-                    tofile=f'{dir2}/{file_name}',
-                    lineterm=''
-                )
-                for line in diff:
-                    print(line)
+                # TODO: Print the differences
+                # diff = difflib.unified_diff(
+                #     file1_content.splitlines(),
+                #     file2_content.splitlines(),
+                #     fromfile=f'{dir1}/{file_name}',
+                #     tofile=f'{dir2}/{file_name}',
+                #     lineterm=''
+                # )
+                # for line in diff:
+                #     print(line)
     
     if not difference_detected:
         print("No differences found!")
